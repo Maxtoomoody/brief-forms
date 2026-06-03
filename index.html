@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Production Brief Form | نموذج بريف إنتاج إعلامي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0d326b', // Dark Blue from logo
+                        secondary: '#009fe3', // Light Blue from logo
+                        bgLight: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for styling inputs */
+        .form-checkbox, .form-radio {
+            accent-color: #009fe3;
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            background-color: #ffffff;
+            transition: all 0.2s ease-in-out;
+            font-size: 0.95rem;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #009fe3;
+            box-shadow: 0 0 0 3px rgba(0, 159, 227, 0.2);
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 2rem;
+            border-top: 4px solid #0d326b;
+        }
+        .section-title {
+            color: #0d326b;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title span.number {
+            background-color: #009fe3;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1rem;
+        }
+        .label-group {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 600;
+        }
+        .label-en {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 400;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            color: #4b5563;
+        }
+        .checkbox-label span {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .checkbox-label span .en { font-size: 0.75rem; color: #9ca3af; }
+    </style>
+</head>
+<body class="bg-bgLight text-gray-800 antialiased py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="relative text-center mb-10 pt-20 sm:pt-4">
+            <img src="src/media/logo.png" alt="Company Logo" class="absolute top-0 left-0 h-14 sm:h-20 object-contain drop-shadow-md">
+            
+            <h1 class="text-3xl font-bold text-primary mb-2">نموذج بريف إنتاج إعلامي</h1>
+            <h2 class="text-xl text-gray-500 font-light">Media Production Brief Form</h2>
+            <p class="mt-4 text-gray-600 max-w-2xl mx-auto">يرجى تعبئة النموذج التالي بتفاصيل مشروعك لنتمكن من فهم احتياجاتك وتقديم العرض الأنسب لك.</p>
+        </div>
+
+        <div id="successMessage" class="hidden bg-green-50 border border-green-200 rounded-xl p-8 text-center mb-8 shadow-sm">
+            <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <h3 class="text-2xl font-bold text-green-800 mb-2">تم الإرسال بنجاح!</h3>
+            <p class="text-green-600">شكراً لك، تم استلام تفاصيل مشروعك وسنتواصل معك في أقرب وقت ممكن.</p>
+            <button onclick="window.location.reload()" class="mt-6 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">إرسال نموذج جديد</button>
+        </div>
+
+        <form id="mediaBriefForm" onsubmit="submitForm(event)">
+            
+            <div class="section-card">
+                <div class="section-title"><span class="number">1</span> بيانات العميل | Client Information</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Company / Brand Name</span>
+                            اسم الشركة / البراند <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" required class="input-field" placeholder="أدخل اسم الشركة">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Contact Person</span>
+                            اسم الشخص المسؤول <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" required class="input-field" placeholder="أدخل اسمك">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Phone / WhatsApp</span>
+                            رقم الهاتف / واتساب <span class="text-red-500">*</span>
+                        </label>
+                        <input type="tel" required class="input-field" dir="ltr" placeholder="+966 5X XXX XXXX">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Email</span>
+                            البريد الإلكتروني
+                        </label>
+                        <input type="email" class="input-field" dir="ltr" placeholder="email@example.com">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Country / City</span>
+                            الدولة / المدينة
+                        </label>
+                        <input type="text" class="input-field" placeholder="مثال: السعودية / الرياض">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Website / Social Media Links</span>
+                            الموقع الإلكتروني / روابط السوشيال ميديا
+                        </label>
+                        <input type="url" class="input-field" dir="ltr" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">2</span> نظرة عامة على المشروع | Project Overview</div>
+                
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">What type of project do you need?</span>
+                        ما نوع المشروع المطلوب؟
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>إنتاج بودكاست <span class="en">Podcast Production</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فيديو تعريفي للشركة <span class="en">Corporate Video</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>محتوى سوشيال ميديا <span class="en">Social Media Content</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>تغطية فعالية <span class="en">Event Coverage</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مقابلة <span class="en">Interview</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فيديو إعلاني <span class="en">Promotional Video</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>محتوى تعليمي <span class="en">Educational Content</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>محتوى للعلامة الشخصية <span class="en">Personal Branding</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox" onchange="toggleOtherInput(this, 'otherProject')"><span>أخرى <span class="en">Other</span></span></label>
+                    </div>
+                    <input type="text" id="otherProject" class="input-field mt-3 hidden" placeholder="حدد نوع المشروع...">
+                </div>
+
+                <div class="mb-6">
+                    <label class="label-group">
+                        <span class="label-en">Briefly describe the project idea:</span>
+                        اشرح فكرة المشروع باختصار:
+                    </label>
+                    <textarea class="input-field h-24" placeholder="اكتب نبذة عن الفكرة..."></textarea>
+                </div>
+
+                <div>
+                    <label class="label-group mb-3">
+                        <span class="label-en">What is the main goal of this content?</span>
+                        ما الهدف الأساسي من المحتوى؟
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>زيادة الوعي بالبراند <span class="en">Brand awareness</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>شرح خدمة <span class="en">Explain a service</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>الترويج لمنتج <span class="en">Promote a product</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>بناء الثقة <span class="en">Build trust</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>زيادة العملاء المحتملين <span class="en">Increase leads</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>إطلاق حملة <span class="en">Launch campaign</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>توثيق فعالية <span class="en">Document an event</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>تثقيف الجمهور <span class="en">Educate the audience</span></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">3</span> الجمهور المستهدف | Target Audience</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Age range</span>
+                            الفئة العمرية
+                        </label>
+                        <input type="text" class="input-field" placeholder="مثال: 18-35">
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Gender</span>
+                            النوع
+                        </label>
+                        <select class="input-field">
+                            <option>الكل (Both)</option>
+                            <option>ذكور (Male)</option>
+                            <option>إناث (Female)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Location</span>
+                            الموقع الجغرافي
+                        </label>
+                        <input type="text" class="input-field" placeholder="المدينة / الدولة">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">Audience type</span>
+                        نوع الجمهور
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>عملاء <span class="en">Customers</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مرضى <span class="en">Patients</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>أصحاب أعمال <span class="en">Business owners</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>متخصصون <span class="en">Professionals</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>طلاب <span class="en">Students</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>جهات حكومية <span class="en">Government</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>جمهور عام <span class="en">General public</span></span></label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="label-group mb-3">
+                        <span class="label-en">What should the audience feel after watching?</span>
+                        ماذا تريد أن يشعر الجمهور بعد المشاهدة؟
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ثقة <span class="en">Trust</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>حماس <span class="en">Excitement</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فضول <span class="en">Curiosity</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>راحة <span class="en">Comfort</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>احتراف <span class="en">Professionalism</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فخامة <span class="en">Luxury</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>رغبة في قرار <span class="en">Urgency</span></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">4</span> الرسالة والمحتوى | Message & Content</div>
+                
+                <div class="space-y-5">
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">What is the main message you want to communicate?</span>
+                            ما الرسالة الأساسية التي تريد توصيلها؟
+                        </label>
+                        <textarea class="input-field h-20"></textarea>
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Are there specific points that must be included?</span>
+                            هل توجد نقاط محددة يجب ذكرها؟
+                        </label>
+                        <textarea class="input-field h-16"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Words/phrases we must use:</span>
+                                كلمات أو جمل يجب استخدامها:
+                            </label>
+                            <input type="text" class="input-field">
+                        </div>
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Words/topics we should avoid:</span>
+                                كلمات أو مواضيع يجب تجنبها:
+                            </label>
+                            <input type="text" class="input-field">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label-group mb-3">
+                            <span class="label-en">Do you already have a script or content outline?</span>
+                            هل يوجد سكريبت أو تصور مكتوب جاهز؟
+                        </label>
+                        <div class="flex gap-6">
+                            <label class="checkbox-label"><input type="radio" name="scriptReady" class="form-radio"><span>نعم <span class="en">Yes</span></span></label>
+                            <label class="checkbox-label"><input type="radio" name="scriptReady" class="form-radio"><span>لا <span class="en">No</span></span></label>
+                            <label class="checkbox-label"><input type="radio" name="scriptReady" class="form-radio"><span>نحتاج مساعدة في كتابته <span class="en">Need help</span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">5</span> اتجاه البراند | Brand Direction</div>
+                
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">How would you describe your brand personality?</span>
+                        كيف تصف شخصية البراند؟
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>راقٍ <span class="en">Premium</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ودود <span class="en">Friendly</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>رسمي <span class="en">Formal</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>إنساني <span class="en">Human</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>جريء <span class="en">Bold</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>بسيط <span class="en">Minimal</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فاخر <span class="en">Luxurious</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>تعليمي <span class="en">Educational</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>عاطفي <span class="en">Emotional</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>حديث <span class="en">Modern</span></span></label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">What tone should the content have?</span>
+                        ما نبرة المحتوى المطلوبة؟
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>احترافية <span class="en">Professional</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>دافئة <span class="en">Warm</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>جادة <span class="en">Serious</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ودودة <span class="en">Friendly</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ملهمة <span class="en">Inspirational</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>بيعية <span class="en">Sales-driven</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>معلوماتية <span class="en">Informative</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فاخرة <span class="en">Luxury</span></span></label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="label-group mb-3">
+                            <span class="label-en">Do you have brand guidelines?</span>
+                            هل توجد Brand Guidelines؟
+                        </label>
+                        <div class="flex gap-6">
+                            <label class="checkbox-label"><input type="radio" name="guidelines" class="form-radio"><span>نعم <span class="en">Yes</span></span></label>
+                            <label class="checkbox-label"><input type="radio" name="guidelines" class="form-radio"><span>لا <span class="en">No</span></span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Upload Logo/Assets</span>
+                            إرفاق الشعار وملفات الهوية
+                        </label>
+                        <input type="file" class="input-field text-sm" multiple>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">6</span> الأسلوب البصري | Visual Style</div>
+                
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">What visual style do you prefer?</span>
+                        ما الأسلوب البصري المفضل؟
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>سينمائي <span class="en">Cinematic</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>نظيف وبسيط <span class="en">Minimal</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مؤسسي <span class="en">Corporate</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فاخر <span class="en">Luxury</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>توثيقي <span class="en">Documentary</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>سريع وحيوي <span class="en">Dynamic</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>دافئ وإنساني <span class="en">Warm</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>طبي <span class="en">Medical</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>تعليمي <span class="en">Educational</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>للسوشيال ميديا <span class="en">Social style</span></span></label>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">Visual references (Links / Competitors)</span>
+                            مراجع بصرية أو روابط لأمثلة منافسين
+                        </label>
+                        <textarea class="input-field h-16"></textarea>
+                    </div>
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">What should we avoid visually?</span>
+                            ما الأشياء التي يجب تجنبها بصريًا؟
+                        </label>
+                        <input type="text" class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">7</span> تفاصيل الإنتاج | Production Details</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="label-group mb-3">
+                            <span class="label-en">Where will the shoot take place?</span>
+                            أين سيتم التصوير؟
+                        </label>
+                        <div class="space-y-2">
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>استوديو <span class="en">Studio</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مقر العميل <span class="en">Client location</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>خارجي <span class="en">Outdoor</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>أكثر من مكان <span class="en">Multiple locations</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>لم يحدد بعد <span class="en">Not decided</span></span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="label-group mb-2">
+                                <span class="label-en">Need us to provide location/studio?</span>
+                                هل نحتاج أن نوفر المكان/الاستوديو؟
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="checkbox-label"><input type="radio" name="provideLocation" class="form-radio"><span>نعم <span class="en">Yes</span></span></label>
+                                <label class="checkbox-label"><input type="radio" name="provideLocation" class="form-radio"><span>لا <span class="en">No</span></span></label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">How many people will appear on camera?</span>
+                                عدد الأشخاص أمام الكاميرا
+                            </label>
+                            <input type="number" class="input-field w-32" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label class="label-group mb-3">
+                        <span class="label-en">Additional Requirements</span>
+                        متطلبات إضافية
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مذيعين/ممثلين/فويس أوفر <span class="en">Actors/VO</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ميك أب/تنسيق ملابس/ديكور <span class="en">Makeup/Styling/Set</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>تصوير فوتوغرافي <span class="en">Photography</span></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">8</span> المخرجات المطلوبة | Deliverables</div>
+                
+                <div class="mb-6">
+                    <label class="label-group mb-3">
+                        <span class="label-en">What final deliverables do you need?</span>
+                        ما هي المخرجات المطلوبة؟
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>فيديو كامل <span class="en">Full video</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مقاطع قصيرة <span class="en">Short reels</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>بودكاست كامل <span class="en">Full episode</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>مقاطع بودكاست <span class="en">Podcast highlights</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>نسخ سوشيال ميديا <span class="en">Social cutdowns</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>ملخص فعالية <span class="en">Event recap</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>صور <span class="en">Photos</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>صور مصغرة <span class="en">Thumbnails</span></span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>موشن جرافيك <span class="en">Motion graphics</span></span></label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="label-group">
+                            <span class="label-en">How many videos required?</span>
+                            كم عدد الفيديوهات المطلوبة؟
+                        </label>
+                        <input type="number" class="input-field" min="1">
+                    </div>
+                    <div>
+                        <label class="label-group mb-2">
+                            <span class="label-en">Required video durations</span>
+                            المدد المطلوبة
+                        </label>
+                        <select class="input-field" multiple style="height: 6rem;">
+                            <option>15 seconds</option>
+                            <option>30 seconds</option>
+                            <option>60 seconds</option>
+                            <option>1-3 minutes</option>
+                            <option>5-10 minutes</option>
+                            <option>Full episode</option>
+                        </select>
+                        <span class="text-xs text-gray-500 mt-1">اضغط Ctrl لتحديد أكثر من خيار</span>
+                    </div>
+                    <div>
+                        <label class="label-group mb-2">
+                            <span class="label-en">Required formats</span>
+                            المقاسات المطلوبة
+                        </label>
+                        <div class="space-y-1">
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>9:16 طولي <span class="en">Vertical</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>1:1 مربع <span class="en">Square</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>16:9 عرضي <span class="en">Landscape</span></span></label>
+                            <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>4:5 انستجرام</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="section-card">
+                    <div class="section-title"><span class="number">9</span> المنصات | Platforms</div>
+                    <label class="label-group mb-3">
+                        <span class="label-en">Where will the content be published?</span>
+                        أين سيتم نشر المحتوى؟
+                    </label>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>Instagram</span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>TikTok</span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>YouTube</span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>LinkedIn</span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>Snapchat</span></label>
+                        <label class="checkbox-label"><input type="checkbox" class="form-checkbox"><span>Website / Internal</span></label>
+                    </div>
+                    <label class="label-group mb-2">
+                        <span class="label-en">Content purpose</span>
+                        الغرض من النشر
+                    </label>
+                    <div class="flex gap-4">
+                        <label class="checkbox-label"><input type="radio" name="purpose" class="form-radio"><span>عضوي <span class="en">Organic</span></span></label>
+                        <label class="checkbox-label"><input type="radio" name="purpose" class="form-radio"><span>إعلانات <span class="en">Ads</span></span></label>
+                        <label class="checkbox-label"><input type="radio" name="purpose" class="form-radio"><span>كلاهما <span class="en">Both</span></span></label>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title"><span class="number">10</span> السكريبت واللغة | Script & Lang</div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Language</span>
+                                اللغة
+                            </label>
+                            <select class="input-field">
+                                <option>عربي (Arabic)</option>
+                                <option>إنجليزي (English)</option>
+                                <option>عربي وإنجليزي (Both)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Arabic Tone</span>
+                                نبرة العربي
+                            </label>
+                            <select class="input-field">
+                                <option>سعودي</option>
+                                <option>عربية بيضاء</option>
+                                <option>فصحى</option>
+                                <option>خليجي</option>
+                                <option>مصري</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="label-group mb-2">
+                            <span class="label-en">Do you need scriptwriting?</span>
+                            هل تحتاج كتابة سكريبت؟
+                        </label>
+                        <div class="flex gap-4">
+                            <label class="checkbox-label"><input type="radio" name="needScript" class="form-radio"><span>نعم</span></label>
+                            <label class="checkbox-label"><input type="radio" name="needScript" class="form-radio"><span>لا</span></label>
+                            <label class="checkbox-label"><input type="radio" name="needScript" class="form-radio"><span>لدينا مسودة</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label-group mb-2">
+                            <span class="label-en">Do you need subtitles?</span>
+                            هل تحتاج ترجمة مكتوبة (Subtitles)؟
+                        </label>
+                        <div class="flex gap-4">
+                            <label class="checkbox-label"><input type="radio" name="subs" class="form-radio"><span>عربي</span></label>
+                            <label class="checkbox-label"><input type="radio" name="subs" class="form-radio"><span>إنجليزي</span></label>
+                            <label class="checkbox-label"><input type="radio" name="subs" class="form-radio"><span>كلاهما</span></label>
+                            <label class="checkbox-label"><input type="radio" name="subs" class="form-radio"><span>لا</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                <div class="section-card">
+                    <div class="section-title"><span class="number">11</span> الجدول الزمني | Timeline</div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Preferred shooting date</span>
+                                تاريخ التصوير المفضل
+                            </label>
+                            <input type="date" class="input-field">
+                        </div>
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Final delivery deadline</span>
+                                موعد التسليم النهائي
+                            </label>
+                            <input type="date" class="input-field">
+                        </div>
+                        <div>
+                            <label class="label-group mb-2">
+                                <span class="label-en">How urgent is the project?</span>
+                                درجة الاستعجال
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="checkbox-label"><input type="radio" name="urgency" class="form-radio"><span>مرن</span></label>
+                                <label class="checkbox-label"><input type="radio" name="urgency" class="form-radio"><span>عادي</span></label>
+                                <label class="checkbox-label"><input type="radio" name="urgency" class="form-radio"><span>عاجل</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title"><span class="number">12</span> الميزانية | Budget</div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label-group">
+                                <span class="label-en">Budget range</span>
+                                الميزانية المتوقعة
+                            </label>
+                            <select class="input-field">
+                                <option>لم يتم التحديد (Not decided)</option>
+                                <option>مفتوح حسب العرض (Open)</option>
+                                <option>أقل من 10,000</option>
+                                <option>10,000 - 30,000</option>
+                                <option>30,000 - 50,000</option>
+                                <option>أكثر من 50,000</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label-group mb-2">
+                                <span class="label-en">Include different package options?</span>
+                                هل تفضل عرض أكثر من باقة في عرض السعر؟
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="checkbox-label"><input type="radio" name="packages" class="form-radio"><span>نعم <span class="en">Yes</span></span></label>
+                                <label class="checkbox-label"><input type="radio" name="packages" class="form-radio"><span>لا <span class="en">No</span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="section-title"><span class="number">13</span> الاعتماد | Approval</div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="label-group">
+                                    <span class="label-en">Who will approve the final content?</span>
+                                    من المسؤول عن الاعتماد النهائي؟ (العدد)
+                                </label>
+                                <input type="number" class="input-field w-24" placeholder="العدد" min="1">
+                            </div>
+                            <div>
+                                <label class="label-group">
+                                    <span class="label-en">Preferred feedback method</span>
+                                    طريقة التعديل المفضلة
+                                </label>
+                                <select class="input-field">
+                                    <option>Frame.io (منصة مراجعة احترافية)</option>
+                                    <option>WhatsApp</option>
+                                    <option>Email</option>
+                                    <option>Meeting</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="section-title"><span class="number">14</span> الحقوق | Legal</div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="label-group">
+                                    <span class="label-en">Any legal/medical compliance requirements?</span>
+                                    هل توجد متطلبات قانونية/طبية أو تصاريح؟
+                                </label>
+                                <input type="text" class="input-field" placeholder="اذكرها إن وجدت...">
+                            </div>
+                            <div>
+                                <label class="label-group mb-2">
+                                    <span class="label-en">Can we use the work in our portfolio?</span>
+                                    هل يمكننا عرض العمل في البورتفوليو الخاص بنا؟
+                                </label>
+                                <div class="flex gap-4">
+                                    <label class="checkbox-label"><input type="radio" name="portfolio" class="form-radio"><span>نعم</span></label>
+                                    <label class="checkbox-label"><input type="radio" name="portfolio" class="form-radio"><span>بعد الموافقة</span></label>
+                                    <label class="checkbox-label"><input type="radio" name="portfolio" class="form-radio"><span>لا</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-title"><span class="number">15</span> ملاحظات إضافية | Notes</div>
+                <div class="mb-4">
+                    <label class="label-group">
+                        <span class="label-en">Anything else we should know?</span>
+                        أي تفاصيل إضافية يجب معرفتها قبل تجهيز العرض؟
+                    </label>
+                    <textarea class="input-field h-24" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+                </div>
+                <div>
+                    <label class="label-group">
+                        <span class="label-en">Attach any useful files (Script, Refs, Brand guidelines)</span>
+                        إرفاق أي ملفات مفيدة (سكريبت، مراجع، الخ...)
+                    </label>
+                    <input type="file" class="input-field text-sm" multiple>
+                </div>
+            </div>
+
+            <div class="text-center mt-10 mb-8">
+                <button type="submit" class="bg-primary hover:bg-[#09224f] text-white font-bold py-4 px-12 rounded-xl text-lg shadow-lg transition-transform transform hover:scale-105">
+                    إرسال البريف | Submit Brief
+                </button>
+                <p class="text-sm text-gray-500 mt-4">بمجرد الإرسال، سيقوم فريقنا بمراجعة طلبك والتواصل معك قريباً.</p>
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+        function toggleOtherInput(checkbox, inputId) {
+            const input = document.getElementById(inputId);
+            if(checkbox.checked) {
+                input.classList.remove('hidden');
+                input.focus();
+            } else {
+                input.classList.add('hidden');
+                input.value = '';
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault(); // Prevent page refresh
+            
+            // Hide the form
+            document.getElementById('mediaBriefForm').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Show success message
+            document.getElementById('successMessage').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
